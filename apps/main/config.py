@@ -2,6 +2,7 @@
 """
 ****** 
 Configuration for environment [Debug, Production, Test] and Mongodb url
+
 ******
 """ 
 #######################################
@@ -35,7 +36,7 @@ class TestingConfig(Config):
 # Load all possible configurations
 config_dict = {
     'Production': ProductionConfig,
-    'Debug'     : DebugConfig,
+    'Dev'     : DebugConfig,
     'Test' : TestingConfig
 }
 
