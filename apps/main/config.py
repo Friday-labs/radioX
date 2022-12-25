@@ -28,9 +28,6 @@ class DebugConfig(Config):
 class TestingConfig(Config):
     DEBUG = True
     TESTING = True
-    MONGO_KEY = "fridayRadioX"
-    MONGO_URI =  "mongodb+srv://FridayInc:"+MONGO_KEY+"@radioxcluster0.rvpjb8i.mongodb.net/radiox?retryWrites=true&w=majority"
-    MONGODB_DB_NAME = 'test'
 
 
 # Load all possible configurations
