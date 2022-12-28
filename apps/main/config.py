@@ -1,7 +1,7 @@
 #######################################
 """
 ****** 
-Configuration for environment [Debug, Production, Test] and Mongodb url
+Configuration for environment [DeV, Production, Test] and Mongodb url
 
 ******
 """ 
