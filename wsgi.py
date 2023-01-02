@@ -7,6 +7,7 @@ import unittest
 from flask.cli import FlaskGroup
 from apps.main.config import config_dict
 from apps.main import create_app
+from apps import blueprint
 
 get_config_mode = os.getenv('BOILERPLATE_ENV') or 'Dev'
 try:
@@ -18,11 +19,11 @@ except KeyError:
     exit('Error: Invalid <config_mode>. Expected values [Debug, Production] ')
 
 app = create_app(app_config)
+app.register_blueprint(blueprint)
 
 app.app_context().push()
 
 # cli = FlaskGroup(app)
-
 
 # @cli.command
 # def run():

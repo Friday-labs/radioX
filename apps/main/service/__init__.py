@@ -1,5 +1,4 @@
-from apps.main import mongo
-from pymongo.collection import Collection
+# from apps.main import mongo
+# from pymongo.collection import Collection
 
-
-users: Collection = mongo.db.radiox
+# users: Collection = mongo.db.users
