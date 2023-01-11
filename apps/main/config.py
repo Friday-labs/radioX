@@ -1,40 +1,30 @@
-#######################################
-"""
-****** 
-Configuration for environment [DeV, Production, Test] and Mongodb url
-
-******
-""" 
-#######################################
 import os
-class Config(object):
+from enum import Enum
 
+class Environment(Enum):
+    PRODUCTION = "production"
+    DEVELOPMENT = "development"
+    TESTING = "testing"
+
+class Config(object):
+    """
+    Configuration for environment [Development, Production, Testing] and MongoDB url
+    """
     # Set up the App SECRET_KEY
     SECRET_KEY = os.getenv('SECRET_KEY', 'S#perS3crEt_007')
     DEBUG = False
-    ###Mongodb Config
-    MONGO_KEY = "fridayRadioX"#os.environ['MONGO_KEY']
-    MONGO_URI =  "mongodb+srv://FridayInc:"+MONGO_KEY+"@radioxcluster0.rvpjb8i.mongodb.net/radiox?retryWrites=true&w=majority"
+
+    # MongoDB configuration
+    MONGO_KEY = "fridayRadioX" # Add the MongoDB key here
+    MONGO_URI =  "mongodb+srv://FridayInc:{MONGO_KEY}@radioxcluster0.rvpjb8i.mongodb.net/radiox?retryWrites=true&w=majority"
     MONGODB_DB_NAME = 'radiox'
-
-class ProductionConfig(Config):
-    DEBUG = False
-
-
-class DebugConfig(Config):
-    DEBUG = True
-
-
-class TestingConfig(Config):
-    DEBUG = True
-    TESTING = True
-
-
-# Load all possible configurations
-config_dict = {
-    'Production': ProductionConfig,
-    'Dev'     : DebugConfig,
-    'Test' : TestingConfig
-}
-
-
+    
+    def __init__(self, environment: Environment):
+        self.environment = environment
+        if environment == Environment.PRODUCTION:
+            self.DEBUG = False
+        elif environment == Environment.DEVELOPMENT:
+            self.DEBUG = True
+        elif environment == Environment.TESTING:
+            self.DEBUG = True
+            self.TESTING = True

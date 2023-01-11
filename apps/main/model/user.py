@@ -1,7 +1,7 @@
 '''
 *** User Model***
 '''
-from pydantic import BaseModel,Field
+from pydantic import BaseModel,Field, EmailStr
 from flask.json import jsonify
 from typing import List, Optional, Union
 
@@ -11,7 +11,7 @@ class User(BaseModel):
     """ User Model for storing user related details """
     id: Optional[PydanticObjectId] = str(Field(None, alias="_id") )
     username: str
-    email:str
+    email: EmailStr
     password : str
 
     def to_json(self):

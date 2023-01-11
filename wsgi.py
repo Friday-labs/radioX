@@ -4,21 +4,14 @@
 import os
 import unittest
 
-from flask.cli import FlaskGroup
-from apps.main.config import config_dict
+# from flask.cli import FlaskGroup
+from apps.main.config import Config, Environment
 from apps.main import create_app
 from apps import blueprint
 
-get_config_mode = os.getenv('BOILERPLATE_ENV') or 'Dev'
-try:
+config = Config(Environment(os.getenv("FLASK_ENV", "development")))
 
-    # Load the configuration using the default values
-    app_config = config_dict[get_config_mode.capitalize()]
-
-except KeyError:
-    exit('Error: Invalid <config_mode>. Expected values [Debug, Production] ')
-
-app = create_app(app_config)
+app = create_app(config)
 app.register_blueprint(blueprint)
 
 app.app_context().push()
