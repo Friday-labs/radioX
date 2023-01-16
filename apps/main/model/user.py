@@ -20,6 +20,3 @@ class User(BaseModel):
     def to_bson(self):
         data = self.dict(by_alias=True, exclude_none=True)
         return data
-
-class TokenModel(BaseModel):
-    token :str
