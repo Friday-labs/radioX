@@ -2,7 +2,8 @@ from datetime import datetime
 from typing import Dict ,Tuple
 from pydantic import ValidationError
 # from . import users
-from apps.main import mongo, flask_bcrypt
+from apps.main import mongo#flask_bcrypt
+from apps.main.utils.password import hash_pass,verify_pass
 from ...model.objectid import PydanticObjectId
 from ...model.user import User
 
@@ -16,19 +17,18 @@ def register_user(data: Dict) -> Tuple[Dict, int]:
     """
     try:
         # Create an instance of the User model and validate the fields
-        new_user = User(**data)
-        new_user.validate()
+        User(**data).validate(data)
          # Check if the user already exists in the database
         user = mongo.db.users.find_one({"email":data['email']})
         if not user:
-            hashed_password = flask_bcrypt.hashpw(new_user.password.encode(), flask_bcrypt.gensalt())
-            data["password"] = hashed_password
-            data["date_added"] = datetime.utcnow()
+            hashed_password = hash_pass(data['password'])
+            data['password'] = hashed_password
+            data["registered_on"]=datetime.utcnow()
              # insert the user into the database
-            result = mongo.db.users.insert_one(data.to_bson())
+            result = mongo.db.users.insert_one(data)
             # set the ID of the user model to the inserted ID
-            new_user.id = str(PydanticObjectId(result.inserted_id))
-            rresponse_object = {
+            # new_user.id = str(PydanticObjectId(result.inserted_id))
+            response_object = {
                 'status': 'success',
                 'message': 'Successfully registered.'
             }

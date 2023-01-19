@@ -1,10 +1,10 @@
 from typing import Dict
 from apps.main import redis_store
-from apps.main.model.blacklist_token import BlacklistToken
+from apps.main.model.blacklist_token import BlacklistedToken
 
 
 def save_token(token: str) -> Dict[str, any]:
-    blacklist_token = BlacklistToken(token=token).dict() # convert the token to dict
+    blacklist_token = BlacklistedToken(token=token).dict() # convert the token to dict
     try:
         # insert the token with fields
         redis_store.hmset(token, blacklist_token)

@@ -25,7 +25,7 @@ app.app_context().push()
 # @cli.command
 def test():
     """Runs the unit tests."""
-    tests = unittest.TestLoader().discover('app/test', pattern='test*.py')
+    tests = unittest.TestLoader().discover('tests')
     result = unittest.TextTestRunner(verbosity=2).run(tests)
     if result.wasSuccessful():
         return 0
@@ -33,4 +33,5 @@ def test():
 
 if __name__ == '__main__':
     # cli()
+    # unittest.main()
     app.run(host='0.0.0.0',port=5001)
