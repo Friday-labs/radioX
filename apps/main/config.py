@@ -13,7 +13,7 @@ class Config(object):
     # Set up the App SECRET_KEY
     SECRET_KEY = os.getenv('SECRET_KEY', 'S#perS3crEt_007')
     DEBUG = False
-    'JWT_ACCESS_TOKEN_EXPIRES' = None
+    JWT_ACCESS_TOKEN_EXPIRES = None
     # MongoDB configuration
     MONGO_URI =  "mongodb+srv://FridayInc:fridayRadioX@radioxcluster0.rvpjb8i.mongodb.net/radiox?retryWrites=true&w=majority"
 
