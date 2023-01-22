@@ -4,7 +4,7 @@
 from pydantic import BaseModel,Field, EmailStr
 from flask.json import jsonify
 import json
-from datetime import datetime
+from datetime import datetime,timedelta
 from flask_jwt_extended import create_access_token,create_refresh_token,decode_token
 from typing import Optional,Tuple,Union
 
@@ -37,14 +37,14 @@ class User(BaseModel):
         return cls(**data)
     
     @staticmethod
-    def encode_auth_token(self, user_id: int) -> Tuple:
+    def encode_auth_token(user_id: str) -> Tuple:
         """
         Generates the Auth Token
         :return: tuple
         """
         try:
-            access_expires = datetime.datetime.utcnow() + datetime.timedelta(days=1, seconds=5)
-            refresh_expires = datetime.datetime.utcnow() + datetime.timedelta(days=10, seconds=5)
+            access_expires = datetime.utcnow() + timedelta(days=1, seconds=5)
+            refresh_expires = datetime.utcnow() + timedelta(days=10, seconds=5)
             access_token = create_access_token(identity=user_id, expires_delta=access_expires)
             refresh_token = create_refresh_token(identity=user_id, expires_delta=refresh_expires)
             return access_token,refresh_token
