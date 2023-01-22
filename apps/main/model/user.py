@@ -3,6 +3,7 @@
 '''
 from pydantic import BaseModel,Field, EmailStr
 from flask.json import jsonify
+import json
 from datetime import datetime
 from flask_jwt_extended import create_access_token,create_refresh_token,decode_token
 from typing import Optional,Tuple,Union
@@ -19,7 +20,7 @@ class User(BaseModel):
     registered_on : Optional[datetime]
 
     def to_json(self):
-        return jsonify(self.dict()) 
+        return self.json()
 
     def to_bson(self):
         data = self.dict(by_alias=True, exclude_none=True)

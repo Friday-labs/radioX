@@ -15,8 +15,6 @@ class Config(object):
     DEBUG = False
 
     # MongoDB configuration
-    MONGO_KEY = "fridayRadioX" # Add the MongoDB key here
-    MONGODB_DB_NAME = 'radiox'
     MONGO_URI =  "mongodb+srv://FridayInc:fridayRadioX@radioxcluster0.rvpjb8i.mongodb.net/radiox?retryWrites=true&w=majority"
 
     # Redis Configuration
@@ -36,4 +34,4 @@ class Config(object):
         elif environment == Environment.TESTING:
             self.DEBUG = True
             self.TESTING = True
-            self.MONGODB_DB_NAME = 'tests'
+            self.MONGO_URI = "mongodb+srv://FridayInc:fridayRadioX@radioxcluster0.rvpjb8i.mongodb.net/tests?retryWrites=true&w=majority"

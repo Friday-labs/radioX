@@ -9,6 +9,10 @@ from flask_pymongo import PyMongo
 from apps.main.config import Config
 
 mongo = PyMongo()
+"""
+We can create multiple pymongo instances for 
+different database
+"""
 #login_manager = LoginManager()
 redis_store = FlaskRedis()
 
