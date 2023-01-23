@@ -1,5 +1,7 @@
 import os
 from enum import Enum
+from dotenv import load_dotenv
+from datetime import datetime,timedelta
 
 class Environment(Enum):
     PRODUCTION = "production"
@@ -10,12 +12,16 @@ class Config(object):
     """
     Configuration for environment [Development, Production, Testing] and MongoDB url
     """
+    load_dotenv()
     # Set up the App SECRET_KEY
-    SECRET_KEY = os.getenv('SECRET_KEY', 'S#perS3crEt_007')
+    # SECRET_KEY = os.getenv('SECRET_KEY', 'S#perS3crEt_007')
     DEBUG = False
-    JWT_ACCESS_TOKEN_EXPIRES = None
+    JWT_SECRET_KEY = os.getenv('JWT_SECRET_KEY')
+    JWT_ACCESS_TOKEN_EXPIRES = timedelta(days=1, seconds=5)
+    JWT_REFRESH_TOKEN_EXPIRES = timedelta(days=10,seconds=5)
     # MongoDB configuration
-    MONGO_URI =  "mongodb+srv://FridayInc:fridayRadioX@radioxcluster0.rvpjb8i.mongodb.net/radiox?retryWrites=true&w=majority"
+    MONGO_URI = os.environ.get('MONGO_URI')
+     #"mongodb+srv://FridayInc:fridayRadioX@radioxcluster0.rvpjb8i.mongodb.net/radiox?retryWrites=true&w=majority"
 
     # Redis Configuration
     #fakeredis.FakeStrictRedis(server=server) for testing

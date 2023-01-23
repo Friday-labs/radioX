@@ -15,7 +15,6 @@ jwt = JWTManager()
 We can create multiple pymongo instances for 
 different database
 """
-#login_manager = LoginManager()
 redis_store = FlaskRedis()
 
 
@@ -26,8 +25,6 @@ def register_extensions(app : Flask):
     mongo.init_app(app)
     jwt.init_app(app)
     redis_store.init_app(app)
-    # flask_bcrypt.init_app(app)
-    # login_manager.init_app(app)
 
 def create_app(config: Type[Config]):
     """

@@ -11,14 +11,13 @@ from tests.base import BaseTestCase
 class TestUserModel(BaseTestCase):
     def test_encode_auth_token(self):
         data = {'username':'test1','email':'test@test.com', 'password':'test','registered_on':datetime.utcnow()}
-        user = User(**data)
+        user = User(**data).validate(data)
         #Create user
         result = mongo.db.users.insert_one(data)
         # Save user to redis_store
         # redis_store.hmset(user.id, user.to_bson())
-        auth_token = user.encode_auth_token(user_id=result.inserted_id)
-        print(auth_token)
-        self.assertTrue(isinstance(auth_token, str))
+        auth_token = user.encode_auth_token(user_id=str(result.inserted_id))
+        self.assertTrue(isinstance(auth_token[0], str))
 
     def test_decode_auth_token(self):
         data = {'username':'test1','email':'test@test.com', 'password':'test','registered_on':datetime.utcnow()}
@@ -28,12 +27,12 @@ class TestUserModel(BaseTestCase):
         # Save user to redis_store
         # redis_store.hmset(user.id, user.to_bson())
 
-        auth_token = user.encode_auth_token(result.inserted_id)
-        self.assertTrue(isinstance(auth_token, str))
+        auth_token = user.encode_auth_token(user_id=str(result.inserted_id))
+        self.assertTrue(isinstance(auth_token[0], str))
         
         # Decode the token using flask_jwt_extended
-        data = user.decode_auth_token(auth_token)#get_jwt_identity()
-        self.assertEqual(data, result.inserted_id)
+        data = user.decode_auth_token(auth_token[0])#get_jwt_identity()
+        self.assertEqual(data, str(result.inserted_id))
 
 
 if __name__ == '__main__':

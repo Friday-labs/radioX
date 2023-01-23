@@ -43,16 +43,14 @@ class User(BaseModel):
         :return: tuple
         """
         try:
-            access_expires = datetime.utcnow() + timedelta(days=1, seconds=5)
-            refresh_expires = datetime.utcnow() + timedelta(days=10, seconds=5)
-            access_token = create_access_token(identity=user_id, expires_delta=access_expires)
-            refresh_token = create_refresh_token(identity=user_id, expires_delta=refresh_expires)
+            access_token = create_access_token(identity=user_id)
+            refresh_token = create_refresh_token(identity=user_id)
             return access_token,refresh_token
         except Exception as e:
             return e
 
     @staticmethod
-    def decode_auth_token(auth_token: str) -> Union[int, str]:
+    def decode_auth_token(auth_token: str) -> str:
         """
         Decodes the auth token
         :param auth_token:
@@ -60,10 +58,10 @@ class User(BaseModel):
         """
         try:
             payload = decode_token(auth_token)
-            is_blacklisted_token = BlacklistedToken.check_blacklist(auth_token)
+            is_blacklisted_token = False#BlacklistedToken.check_blacklist(auth_token)
             if is_blacklisted_token:
                 return 'Token Expired. Please log in again.'
             else:
-                return payload['identity']
+                return payload['sub']
         except Exception as e:
             return str(e)
