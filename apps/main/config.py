@@ -21,15 +21,13 @@ class Config(object):
     JWT_REFRESH_TOKEN_EXPIRES = timedelta(days=10,seconds=5)
     # MongoDB configuration
     MONGO_URI = os.environ.get('MONGO_URI')
-     #"mongodb+srv://FridayInc:fridayRadioX@radioxcluster0.rvpjb8i.mongodb.net/radiox?retryWrites=true&w=majority"
-
     # Redis Configuration
     #fakeredis.FakeStrictRedis(server=server) for testing
-    redis_host = "localhost"
-    redis_port = 6379
-    redis_password = ""
+    REDIS_HOST = 'localhost'
+    REDIS_PORT = 6379
+    REDIS_DB = 0
     ##Password is not set
-    REDIS_URL = "redis://:password@localhost:6379/0"
+    REDIS_URL = 'redis://localhost:6379/0'
     
     def __init__(self, environment: Environment):
         self.environment = environment
@@ -40,4 +38,4 @@ class Config(object):
         elif environment == Environment.TESTING:
             self.DEBUG = True
             self.TESTING = True
-            self.MONGO_URI = "mongodb+srv://FridayInc:fridayRadioX@radioxcluster0.rvpjb8i.mongodb.net/tests?retryWrites=true&w=majority"
+            self.MONGO_URI = os.getenv('TEST_MONGO_URI')

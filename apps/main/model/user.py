@@ -58,7 +58,7 @@ class User(BaseModel):
         """
         try:
             payload = decode_token(auth_token)
-            is_blacklisted_token = False#BlacklistedToken.check_blacklist(auth_token)
+            is_blacklisted_token = BlacklistedToken.check_blacklist(auth_token)
             if is_blacklisted_token:
                 return 'Token Expired. Please log in again.'
             else:

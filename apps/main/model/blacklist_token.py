@@ -5,7 +5,6 @@ from apps.main import redis_store
 class BlacklistedToken(BaseModel):
     token: str
     blacklisted_on: datetime
-    expires_on: datetime
 
     class Config:
         orm_mode = True

@@ -7,7 +7,7 @@ def save_token(token: str) -> Dict[str, any]:
     blacklist_token = BlacklistedToken(token=token).dict() # convert the token to dict
     try:
         # insert the token with fields
-        redis_store.hmset(token, blacklist_token)
+        redis_store.set(token, blacklist_token)
         response_object = {
             'status': 'success',
             'message': 'Successfully logged out.'
