@@ -21,5 +21,3 @@ class AuthDto:
     user_auth_token = api.model('auth_token', {
         'Authorization_token': fields.String(required=True, description='valid_auth_token'),
     })
-
-   
