@@ -10,3 +10,16 @@ class UserDto:
         'password': fields.String(required=True, description='user password'),
         #'public_id': fields.String(description='user Identifier')
     })
+
+class AuthDto:
+    api = Namespace('auth', description='authentication related operations')
+    # logout_api = Namespace('logout', description='authentication related operations')
+    user_auth = api.model('auth_details', {
+        'email': fields.String(required=True, description='The email address'),
+        'password': fields.String(required=True, description='The user password '),
+    })
+    user_auth_token = api.model('auth_token', {
+        'Authorization_token': fields.String(required=True, description='valid_auth_token'),
+    })
+
+   

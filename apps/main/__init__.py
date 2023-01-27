@@ -3,6 +3,7 @@
 '''
 from typing import Type
 from flask import Flask
+from flask_restx import Api
 # from flask_login import LoginManager
 from flask_redis import FlaskRedis
 from flask_jwt_extended import JWTManager
@@ -11,6 +12,7 @@ from apps.main.config import Config
 
 mongo = PyMongo()
 jwt = JWTManager()
+api = Api()
 """
 We can create multiple pymongo instances for 
 different database
