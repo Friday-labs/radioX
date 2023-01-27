@@ -22,7 +22,6 @@ class Config(object):
     # MongoDB configuration
     MONGO_URI = os.environ.get('MONGO_URI')
     # Redis Configuration
-    #fakeredis.FakeStrictRedis(server=server) for testing
     REDIS_HOST = 'localhost'
     REDIS_PORT = 6379
     REDIS_DB = 0

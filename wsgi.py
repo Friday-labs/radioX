@@ -33,4 +33,8 @@ def test():
 
 if __name__ == '__main__':
     # cli()
+<<<<<<< HEAD
+=======
+    # test()
+>>>>>>> feature_branch
     app.run(host='0.0.0.0',port=5001)
