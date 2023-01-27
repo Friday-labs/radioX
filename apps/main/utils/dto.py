@@ -10,8 +10,6 @@ class UserDto:
         'password': fields.String(required=True, description='user password'),
         #'public_id': fields.String(description='user Identifier')
     })
-<<<<<<< HEAD
-=======
 
 class AuthDto:
     api = Namespace('auth', description='authentication related operations')
@@ -25,4 +23,3 @@ class AuthDto:
     })
 
    
->>>>>>> feature_branch
