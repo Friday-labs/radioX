@@ -9,7 +9,7 @@ from apps.main.config import Config, Environment
 from apps.main import create_app
 from apps import blueprint
 
-config = Config(Environment(os.getenv("FLASK_ENV", "development")))
+config = Config(Environment(os.getenv("FLASK_DEBUG", "development")))
 
 app = create_app(config)
 app.register_blueprint(blueprint)
@@ -33,5 +33,5 @@ def test():
 
 if __name__ == '__main__':
     # cli()
-    # test()
-    app.run(host='0.0.0.0',port=5001)
+    test()
+    # app.run(host='0.0.0.0',port=5001)

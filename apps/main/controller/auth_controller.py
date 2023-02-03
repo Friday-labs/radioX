@@ -7,7 +7,6 @@ from ..utils.dto import AuthDto
 
 api = AuthDto.api
 user_auth = AuthDto.user_auth
-user_auth_token = AuthDto.user_auth_token
 
 @api.route('/login')
 class UserLogin(Resource):
@@ -32,8 +31,7 @@ class LogoutAPI(Resource):
     @api.doc('logout a user')
     @api.response(200, 'User logged out.')
     @api.response(400, 'Bad Request')
-    @api.expect(user_auth_token, validate=True)
     def post(self):
         # get auth token
-        auth_header = request.json.get('Authorization_token')
+        auth_header = request.headers.get('Authorization')
         return Auth.logout_user(data=auth_header)
