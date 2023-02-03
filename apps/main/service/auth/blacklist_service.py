@@ -20,4 +20,4 @@ def save_token(token: str) -> Dict[str, any]:
             'status': 'fail',
             'message': e
         }
-        return response_object, 200
+        return response_object, 401

@@ -18,8 +18,5 @@ class AuthDto:
         'email': fields.String(required=True, description='The email address'),
         'password': fields.String(required=True, description='The user password '),
     })
-    user_auth_token = api.model('auth_token', {
-        'Authorization_token': fields.String(required=True, description='valid_auth_token'),
-    })
 
    

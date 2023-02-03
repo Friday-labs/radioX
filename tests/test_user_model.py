@@ -31,8 +31,8 @@ class TestUserModel(BaseTestCase):
         self.assertTrue(isinstance(auth_token[0], str))
         
         # Decode the token using flask_jwt_extended
-        data = user.decode_auth_token(auth_token[0])#get_jwt_identity()
-        self.assertEqual(data, str(result.inserted_id))
+        data = user.decode_auth_token(auth_token[0])
+        self.assertEqual(data['sub'], str(result.inserted_id))
 
 
 if __name__ == '__main__':

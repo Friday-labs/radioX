@@ -7,7 +7,7 @@ api = UserDto.api
 _user = UserDto.user
 
 # Define the route for the user resource
-@api.route('/')
+@api.route('/register')
 class Users(Resource):
 
     # Define the expected responses
