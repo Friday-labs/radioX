@@ -13,7 +13,6 @@ config = Config(Environment(os.getenv("FLASK_DEBUG", "development")))
 
 app = create_app(config)
 app.register_blueprint(blueprint)
-
 app.app_context().push()
 
 # cli = FlaskGroup(app)

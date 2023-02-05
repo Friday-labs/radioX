@@ -12,7 +12,6 @@ from apps.main.config import Config
 
 mongo = PyMongo()
 jwt = JWTManager()
-api = Api()
 """
 We can create multiple pymongo instances for 
 different database

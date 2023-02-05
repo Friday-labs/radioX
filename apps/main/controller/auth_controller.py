@@ -35,3 +35,17 @@ class LogoutAPI(Resource):
         # get auth token
         auth_header = request.headers.get('Authorization')
         return Auth.logout_user(data=auth_header)
+
+@api.route('/tokens')
+class LogoutAPI(Resource):
+    """
+    Token Resource
+    """
+    @api.doc('get valid token')
+    @api.response(200, 'token generate')
+    @api.response(400, 'Bad Request')
+    @api.response(401,'UnAuthorized')
+    def post(self):
+        # get auth token
+        auth_header = request.headers.get('Authorization')
+        return Auth.generate_tokens(data=auth_header)
