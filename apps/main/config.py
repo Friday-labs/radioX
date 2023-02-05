@@ -37,4 +37,4 @@ class Config(object):
         elif environment == Environment.TESTING:
             self.DEBUG = True
             self.TESTING = True
-            self.MONGO_URI = os.getenv('TEST_MONGO_URI')
+            self.MONGO_URI = os.getenv('TEST_MONGO_URI_','mongodb://localhost:27017/tests')

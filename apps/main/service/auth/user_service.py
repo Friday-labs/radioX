@@ -3,10 +3,27 @@ from typing import Dict ,Tuple
 from pydantic import ValidationError
 # from . import users
 from apps.main import mongo#flask_bcrypt
-from apps.main.utils.password import hash_pass,verify_pass
+from apps.main.utils.password import hash_pass
 from ...model.objectid import PydanticObjectId
 from ...model.user import User
 
+
+def generate_token(user_id):
+    try:
+        # generate the auth token
+        auth_token = User.encode_auth_token(user_id)
+        response_object = {
+            'status': 'success',
+            'message': 'Successfully registered.',
+            'Authorization': auth_token
+        }
+        return response_object, 201
+    except Exception as e:
+        response_object = {
+            'status': 'fail',
+            'message': 'Some error occurred. Please try again.'
+        }
+        return response_object, 401
 
 def register_user(data: Dict) -> Tuple[Dict, int]:
     """
@@ -28,11 +45,7 @@ def register_user(data: Dict) -> Tuple[Dict, int]:
             result = mongo.db.users.insert_one(data)
             # set the ID of the user model to the inserted ID
             # new_user.id = str(PydanticObjectId(result.inserted_id))
-            response_object = {
-                'status': 'success',
-                'message': 'Successfully registered.'
-            }
-            return response_object, 201
+            return generate_token(str(result.inserted_id))
         else:
             # return an error message and a 409 status code if the user already exists
             response_object = {

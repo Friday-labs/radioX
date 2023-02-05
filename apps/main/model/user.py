@@ -62,6 +62,6 @@ class User(BaseModel):
             if is_blacklisted_token:
                 return 'Token Expired. Please log in again.'
             else:
-                return payload['sub']
+                return payload
         except Exception as e:
             return str(e)

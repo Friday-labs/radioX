@@ -38,12 +38,12 @@ class Auth:
     @staticmethod
     def logout_user(data):
         if data:
-            auth_token = data
+            auth_token = data.split(" ")[1] # 'Bearer eyasdczzx5eb7cf5a86d9755df3a6c593' 
         else:
             auth_token = ''
         if auth_token:
             resp = User.decode_auth_token(auth_token)
-            if isinstance(resp, str):
+            if isinstance(resp, dict):
                 # mark the token as blacklisted
                 return save_token(token=auth_token)
             else:
