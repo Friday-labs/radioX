@@ -37,6 +37,7 @@ class LogoutAPI(Resource):
         return Auth.logout_user(data=auth_header)
 
 @api.route('/tokens')
+@jwt_required(refresh=True)
 class LogoutAPI(Resource):
     """
     Token Resource
