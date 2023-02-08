@@ -127,6 +127,42 @@ class TestAuthBlueprint(BaseTestCase):
             self.assertTrue(data['status'] == 'fail')
             self.assertTrue(data['message'] == 'Token Expired. Please log in again.')
             self.assertEqual(response.status_code, 401)
+    
+    def test_generate_access_token(self):
+        """Test for generate token using refresh_token"""
+        with self.client:
+            #register_user
+            self.client.post(
+                '/user/register',
+                data=json.dumps({
+                    'email': 'joe1@example.com',
+                    'username': 'joe',
+                    'password': '123456'
+                }),
+            content_type='application/json'
+            )
+            #login_user
+            resp_login = self.client.post(
+                '/auth/login',
+                data=json.dumps({
+                    'email': 'joe1@example.com',
+                    'password': '123456'
+                }),
+            content_type='application/json'
+            )
+            # resp_login = login_user(self,registered=True)
+            data_login = json.loads(resp_login.data.decode())
+            response = self.client.post(
+                '/auth/tokens',
+                headers={
+                    'Authorization': 'Bearer ' + data_login['Authorization'][1]
+                }
+            )
+            data = json.loads(response.data.decode())
+            self.assertTrue(data['status'] == 'success')
+            self.assertTrue(data['message'] == 'Successfully Generated Token.')
+            self.assertEqual(response.status_code, 201)
+
 
 if __name__ == '__main__':
     unittest.main()
